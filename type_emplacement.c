@@ -1,8 +1,8 @@
 // type_emplacement.c
-// Implémentation des fonctions de gestion des types d'emplacements
+// ImplÃ©mentation des fonctions de gestion des types d'emplacements
 #include "type_emplacement.h"
 
-// ===== Fonctions utilitaires =====
+
 
 void clear_screen() {
 #ifdef _WIN32
@@ -13,7 +13,7 @@ void clear_screen() {
 }
 
 void pause_ecran() {
-    printf("\nAppuyez sur Entrée pour continuer...");
+    printf("\nAppuyez sur EntrÃ©e pour continuer...");
     getchar();
 }
 
@@ -64,14 +64,14 @@ void ajouter_mat_type_emplacement() {
     printf("\nExemple : Tente, Caravane, Camping-car, Bungalow\n");
     lire_chaine("Entrez le type", e.type, MAX_TYPE);
     e.nb_places = lire_entier("Nombre maximum de personnes");
-    e.surface = lire_float("Surface en m²");
+    e.surface = lire_float("Surface en mÂ²");
     e.tarif = lire_float("Tarif par jour par personne (euros)");
 
     FILE *f = fopen(FICHIER_TYPE_EMPLACEMENT, "a");
     if (f) {
         fprintf(f, "%d;%s;%d;%.2f;%.2f\n", e.id, e.type, e.nb_places, e.surface, e.tarif);
         fclose(f);
-        printf("\nType d'emplacement ajouté avec succès !\n");
+        printf("\nType d'emplacement ajoutÃ© avec succÃ¨s !\n");
     } else printf("Erreur : impossible d'ouvrir le fichier.\n");
 
     pause_ecran();
@@ -85,7 +85,7 @@ void lister_mat_type_emplacements() {
 
     FILE *f = fopen(FICHIER_TYPE_EMPLACEMENT, "r");
     if (!f) {
-        printf("Aucun type enregistré.\n");
+        printf("Aucun type enregistrÃ©.\n");
         pause_ecran();
         return;
     }
@@ -108,10 +108,10 @@ void consulter_mat_type_emplacement() {
     printf("   CONSULTER TYPE D'EMPLACEMENT\n");
     printf("==================================\n");
 
-    int id = lire_entier("Entrez l'ID à consulter");
+    int id = lire_entier("Entrez l'ID Ã  consulter");
     FILE *f = fopen(FICHIER_TYPE_EMPLACEMENT, "r");
     if (!f) {
-        printf("Aucun type enregistré.\n");
+        printf("Aucun type enregistrÃ©.\n");
         pause_ecran();
         return;
     }
@@ -121,7 +121,7 @@ void consulter_mat_type_emplacement() {
 
     while (fscanf(f, "%d;%[^;];%d;%f;%f\n", &e.id, e.type, &e.nb_places, &e.surface, &e.tarif) == 5) {
         if (e.id == id) {
-            printf("\nID : %d\nType : %s\nPlaces : %d\nSurface : %.2f m²\nTarif : %.2f euros\n", e.id, e.type, e.nb_places, e.surface, e.tarif);
+            printf("\nID : %d\nType : %s\nPlaces : %d\nSurface : %.2f mÂ²\nTarif : %.2f euros\n", e.id, e.type, e.nb_places, e.surface, e.tarif);
             trouve = 1;
             break;
         }
@@ -139,7 +139,7 @@ void supprimer_mat_type_emplacement() {
     printf(" SUPPRESSION TYPE D'EMPLACEMENT\n");
     printf("==================================\n");
 
-    int id = lire_entier("Entrez l'ID à supprimer");
+    int id = lire_entier("Entrez l'ID Ã  supprimer");
     FILE *f = fopen(FICHIER_TYPE_EMPLACEMENT, "r");
     FILE *temp = fopen("temp.txt", "w");
 
@@ -164,7 +164,7 @@ void supprimer_mat_type_emplacement() {
     remove(FICHIER_TYPE_EMPLACEMENT);
     rename("temp.txt", FICHIER_TYPE_EMPLACEMENT);
 
-    if (trouve) printf("\nType supprimé avec succès !\n");
+    if (trouve) printf("\nType supprimÃ© avec succÃ¨s !\n");
     else printf("\nType introuvable.\n");
 
     pause_ecran();
@@ -176,7 +176,7 @@ void modifier_mat_type_emplacement() {
     printf(" MODIFICATION TYPE D'EMPLACEMENT\n");
     printf("==================================\n");
 
-    int id = lire_entier("Entrez l'ID à modifier");
+    int id = lire_entier("Entrez l'ID Ã  modifier");
     FILE *f = fopen(FICHIER_TYPE_EMPLACEMENT, "r");
     FILE *temp = fopen("temp.txt", "w");
 
@@ -194,7 +194,7 @@ void modifier_mat_type_emplacement() {
             printf("\nExemple : Tente, Caravane, Camping-car, Bungalow\n");
             lire_chaine("Entrez le nouveau type", e.type, MAX_TYPE);
             e.nb_places = lire_entier("Nombre maximum de personnes");
-            e.surface = lire_float("Surface en m²");
+            e.surface = lire_float("Surface en mÂ²");
             e.tarif = lire_float("Tarif par jour par personne");
             trouve = 1;
         }
@@ -206,8 +206,9 @@ void modifier_mat_type_emplacement() {
     remove(FICHIER_TYPE_EMPLACEMENT);
     rename("temp.txt", FICHIER_TYPE_EMPLACEMENT);
 
-    if (trouve) printf("\nType modifié avec succès !\n");
+    if (trouve) printf("\nType modifiÃ© avec succÃ¨s !\n");
     else printf("\nType introuvable.\n");
 
     pause_ecran();
 }
+
